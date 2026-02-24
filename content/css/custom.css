@@ -1,0 +1,205 @@
+/** Get yer admin font on! **/
+@font-face {
+  font-family: "Iosevka";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("https://cdn.kevquirk.com/iosevka/webfont/subset-regular.woff2") format("woff2"),
+       url("https://cdn.kevquirk.com/iosevka/webfont/subset-regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Iosevka";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("https://cdn.kevquirk.com/iosevka/webfont/subset-bold.woff2") format("woff2"),
+       url("https://cdn.kevquirk.com/iosevka/webfont/subset-bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Iosevka";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url("https://cdn.kevquirk.com/iosevka/webfont/subset-italic.woff2") format("woff2"),
+       url("https://cdn.kevquirk.com/iosevka/webfont/subset-italic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Iosevka";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url("https://cdn.kevquirk.com/iosevka/webfont/subset-bolditalic.woff2") format("woff2"),
+       url("https://cdn.kevquirk.com/iosevka/webfont/subset-bolditalic.woff") format("woff");
+}
+
+:root {
+  --font-stack: "Iosevka", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --bg: #fafafa;
+  --accent: var(--red);
+  --accent-bg: #eee;
+  --grey: #333;
+  --blue: #0d47a1;
+  --red: #af2e1b;
+  --green: #1b5e20;
+  --standard-border: 3px solid var(--text-color);
+}
+
+@media(prefers-color-scheme:dark) {
+  :root {
+    --grey: #DCDCDC;
+    --blue: #88C0D0;
+    --red: #ff8a80;
+    --green: #A3BE8C;
+    --bg: #222;
+    --accent-bg: #1a1a1a;
+  }
+}
+
+header {
+  border-bottom: var(--standard-border);
+}
+
+header h1 {
+  margin: 2rem 0;
+  font-size: 2.4rem;
+}
+
+/* Nav */
+.site-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.site-nav li {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.site-nav li:last-child {
+    margin-right: 0;
+}
+
+.site-nav a {
+    color: inherit;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+}
+
+.site-nav a:hover,
+.site-nav a.current {
+  text-decoration: none;
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Format logos */
+.logo {
+  color: var(--accent);
+  border: 3px solid currentColor;
+  font-weight: bold;
+}
+
+.pure,
+.service {
+  padding: 0 0.5rem;
+}
+
+.service {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.logo.grey {
+  --accent: var(--grey);
+}
+
+.logo.blue {
+  --accent: var(--blue);
+}
+
+.logo.red {
+  --accent: var(--red);
+}
+
+.logo.green {
+  --accent: var(--green);
+}
+
+.notice,
+.notice.announce,
+.notice.tip,
+.notice.warning {
+  position: relative;
+  padding-left: 4rem;
+  border-radius: 0;
+  border: var(--standard-border);
+}
+
+.notice::before,
+.notice.announce::before,
+.notice.tip::before,
+.notice.warning:before {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.notice::before {
+  content: "📝";
+}
+
+.notice.announce::before {
+  content: "📣";
+}
+
+.notice.tip::before {
+  content: "💡";
+}
+
+.notice.warning::before {
+  content: "⚠️";
+}
+
+.center {
+  text-align: center;
+}
+
+pre,
+code,
+main img,
+main video,
+input,
+button {
+  border-radius: 0;
+}
+
+pre {
+  border: var(--standard-border);
+}
+
+table {
+  border: var(--standard-border);
+}
+
+input {
+  border: var(--standard-border);
+}
+
+button {
+  text-transform: uppercase;
+}
+
+.site-search-form button {
+  padding: 0.9rem 1.25rem;
+}
