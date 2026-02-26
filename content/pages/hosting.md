@@ -13,3 +13,8 @@ Managed hosting for Pure Comments is on the way. It’ll give you all the benefi
 The goal is to offer a simple, predictable service for personal sites, blogs, and small web projects. No tracking, no ads, no upsell funnels. Just a lightweight hosted version of Pure Comments that stays true to the principles of the [Pure Commons](https://purecommons.org) project, for a minimal monthly fee.
 
 More details will be available soon.
+
+<p class="center">
+  <a href="/hosting-terms-of-service">Terms of service</a> |
+  <a href="/hosting-privacy-policy">Privacy policy</a>
+</p>
