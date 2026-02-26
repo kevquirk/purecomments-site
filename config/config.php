@@ -1,10 +1,11 @@
 <?php
 return array (
   'site_title' => 'Pure Comments',
-  'site_tagline' => 'A simple commenting system for your personal blog.',
-  'site_description' => '',
+  'site_tagline' => 'A simple commenting system for the small web.',
+  'site_description' => 'Pure Comments is a simple, lightweight commenting system designed for the small web.',
   'site_email' => '',
-  'custom_nav' => '',
+  'custom_nav' => 'GitHub | https://github.com/kevquirk/purecomments
+Pure Commons | https://purecommons.org',
   'custom_routes' => '',
   'head_inject_page' => '',
   'head_inject_post' => '',
