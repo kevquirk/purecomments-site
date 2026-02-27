@@ -14,6 +14,8 @@ Pure Comments has been designed from the ground up to be simple to self-host and
 3. Add the Pure Comments embed code to your blog.
 4. Enjoy!
 
+<p class="notice">Pure Comments can be used on <strong>ANY</strong> site where you can add the <a href="#embed">embed script</a>. You don't need to be running <a href="https://blog.purecommons.org">Pure Blog</a> to use Pure Comments.</p>
+
 ## Hosting requirements
 
 - PHP 8+
@@ -38,7 +40,7 @@ This is what the setup screen looks like:
 
 All you need to do is fill in all the relevant fields, hit the save button, and Pure Comments is installed and ready for use!
 
-<p class="notice">Once setup is complete, the <code>setup.php</code> is automatically deleted.</p>
+<p class="notice tip">Once setup is complete, the <code>setup.php</code> is automatically deleted.</p>
 
 Here's a reference guide on what the setup fields mean:
 
@@ -54,7 +56,7 @@ Here's a reference guide on what the setup fields mean:
 
 All of the above (and more) is configurable after setup from the Pure Comments setting screen.
 
-## Embedding the comments form
+## Embedding the comments form <a id="embed"></a>
 
 Once you've setup Pure Comments, all you need to do now is add the embed code where you want comments to appear, and you're good to go. The embed code will look something like this:
 

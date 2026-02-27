@@ -15,7 +15,7 @@ Once there you can check if there's an update by hitting the `CHECK LATEST RELEA
 
 ![update 02](/content/images/how-to-update-pure-comments/update-02.webp)
 
-If you need an update, hit the `INSPECT RELEASE PACKAGE` button. Pure Comments will provide a list of what will change during this update for you to review and ensure it won't break anything you've changed on your site.
+If an update is available, hit the `INSPECT RELEASE PACKAGE` button. Pure Comments will provide a list of what will change during this update for you to review and ensure it won't break anything you've changed on your site.
 
 ![update 03](/content/images/how-to-update-pure-comments/update-03.webp)
 

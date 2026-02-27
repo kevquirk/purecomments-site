@@ -26,7 +26,7 @@ For many sites, that default behaviour is all you need.
 
 ## data-post-slug (Optional)
 
-Use `data-post-slug` on the `#comments` container when you want to explicitly control the post/thread identifier.
+You can use `data-post-slug` on the `#comments` container when you want to explicitly control the post/thread identifier.
 
 ```html
 <div id="comments" data-post-slug="my-first-post"></div>
@@ -45,7 +45,7 @@ Different slugs create different threads. If your blog's URL structure changes l
 
 ## data-base-url (Optional)
 
-Use `data-base-url` on the script tag when API calls should go to a different origin than the script file.
+You can also use `data-base-url` on the script tag when API calls should go to a different origin than the script file.
 
 ```html
 <script src="https://comments.cdn.example.com/public/embed.js" data-base-url="https://comments.example.com" defer></script>
@@ -72,4 +72,4 @@ This gives you:
 
 ## Practical Recommendation
 
-Start with defaults first. Add these attributes only when you need predictability across URL changes, multi-domain deployments, or custom routing.
+Start with defaults first then add these attributes only when you need predictability across URL changes, multi-domain deployments, or custom routing.
