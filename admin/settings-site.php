@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['admin_action_id'])) 
     $baseUrl = trim($_POST['base_url'] ?? '');
     $homepageSlug = trim($_POST['homepage_slug'] ?? '');
     $blogPageSlug = trim($_POST['blog_page_slug'] ?? '');
+    $ogImagePreferred = trim($_POST['og_image_preferred'] ?? 'banner');
     $hideHomepageTitle = !empty($_POST['hide_homepage_title']);
     $hideBlogPageTitle = !empty($_POST['hide_blog_page_title']);
 
@@ -60,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['admin_action_id'])) 
     if ($blogPageSlug !== '' && $blogPageSlug !== $hiddenBlogValue && !isset($pageSlugLookup[$blogPageSlug])) {
         $errors[] = 'Blog page must reference an existing page.';
     }
+    if (!in_array($ogImagePreferred, ['banner', 'square'], true)) {
+        $errors[] = 'Open Graph image format must be banner or square.';
+    }
 
     if (!$errors) {
         $config['site_title'] = $siteTitle;
@@ -82,8 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['admin_action_id'])) 
         $config['hide_blog_page_title'] = $hideBlogPageTitle;
 
         if (!isset($config['assets'])) {
-            $config['assets'] = ['favicon' => '', 'og_image' => ''];
+            $config['assets'] = ['favicon' => '', 'og_image' => '', 'og_image_preferred' => 'banner'];
         }
+        $config['assets']['og_image_preferred'] = $ogImagePreferred;
 
         $assetDir = PUREBLOG_CONTENT_IMAGES_PATH;
         if (!is_dir($assetDir)) {
@@ -201,11 +206,17 @@ require __DIR__ . '/../includes/admin-head.php';
                     <p class="current-image">Current: <a href="<?= e($config['assets']['favicon']) ?>" target="_blank" rel="noopener noreferrer"><?= e($config['assets']['favicon']) ?></a></p>
                 <?php endif; ?>
 
-                <label for="og_image">Open Graph image <span class="tip">(1360x712 works best)</span></label>
+                <label for="og_image">Open Graph image <span class="tip">(1360x712 for banner, or 1200x1200 for square)</span></label>
                 <input type="file" id="og_image" name="og_image" accept="image/*">
                 <?php if (!empty($config['assets']['og_image'])): ?>
                     <p class="current-image">Current: <a href="<?= e($config['assets']['og_image']) ?>" target="_blank" rel="noopener noreferrer"><?= e($config['assets']['og_image']) ?></a></p>
                 <?php endif; ?>
+
+                <label for="og_image_preferred">Open Graph image format</label>
+                <select id="og_image_preferred" name="og_image_preferred">
+                    <option value="banner"<?= ($config['assets']['og_image_preferred'] ?? 'banner') === 'banner' ? ' selected' : '' ?>>Banner (default)</option>
+                    <option value="square"<?= ($config['assets']['og_image_preferred'] ?? 'banner') === 'square' ? ' selected' : '' ?>>Square</option>
+                </select>
 
                 <label for="custom_nav">Custom nav items <span class="tip">(one per line)</span></label>
                 <textarea id="custom_nav" name="custom_nav" rows="4" placeholder="GitHub | https://github.com/you&#10;Projects | /projects"><?= e($config['custom_nav'] ?? '') ?></textarea>

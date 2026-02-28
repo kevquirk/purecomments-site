@@ -76,6 +76,7 @@ function default_config(): array
         'assets' => [
             'favicon' => '/assets/images/favicon.png',
             'og_image' => '/assets/images/og-image.png',
+            'og_image_preferred' => 'banner',
         ],
     ];
 }
