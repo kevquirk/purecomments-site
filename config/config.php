@@ -17,8 +17,15 @@ Pure Commons | https://purecommons.org',
   'hide_homepage_title' => true,
   'hide_blog_page_title' => true,
   'base_url' => 'https://comments.purecommons.org',
+  'timezone' => 'UTC',
+  'date_format' => 'F j, Y',
   'admin_username' => 'bfetbntrn',
   'admin_password_hash' => '$2y$10$AGLqnuhO7q0L1ggBQLO5c.lex5fLIRow4cjCjGt3qyRd5uFNOny8.',
+  'cache' => 
+  array (
+    'enabled' => true,
+    'rss_ttl' => 3600,
+  ),
   'theme' => 
   array (
     'color_mode' => 'auto',
@@ -41,5 +48,6 @@ Pure Commons | https://purecommons.org',
   array (
     'favicon' => '/content/images/favicon.png',
     'og_image' => '/assets/images/og-image.png',
+    'og_image_preferred' => 'banner',
   ),
 );
