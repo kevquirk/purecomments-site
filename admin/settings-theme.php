@@ -194,6 +194,8 @@ require __DIR__ . '/../includes/admin-head.php';
             <section class="section-divider">
                 <span class="title">Site custom colors</span>
 
+                <p><b>Browse the <a target="_blank" href="https://pureblog.org/themes">PureBlog theme gallery</a> for inspiration.</b></p>
+
                 <h3>Light mode</h3>
                 <div class="color-grid">
                     <div class="color-field">
