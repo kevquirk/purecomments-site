@@ -64,9 +64,9 @@ function default_config(): array
         'posts_per_page' => 20,
         'homepage_slug' => '',
         'blog_page_slug' => '',
-        'hide_homepage_title' => true,
-        'hide_blog_page_title' => true,
+
         'base_url' => '',
+        'language' => 'en',
         'timezone' => date_default_timezone_get(),
         'date_format' => 'F j, Y',
         'admin_username' => '',
@@ -1098,7 +1098,9 @@ function get_markdown_parser(): object
     require_once __DIR__ . '/lib/Parsedown.php';
     if (is_file(__DIR__ . '/lib/ParsedownExtra.php')) {
         require_once __DIR__ . '/lib/ParsedownExtra.php';
-        require_once __DIR__ . '/lib/ParsedownPureblog.php';
+        if (is_file(__DIR__ . '/lib/ParsedownPureblog.php')) {
+            require_once __DIR__ . '/lib/ParsedownPureblog.php';
+        }
     }
 
     if (class_exists('ParsedownPureblog')) {

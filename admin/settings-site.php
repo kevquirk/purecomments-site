@@ -31,14 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['admin_action_id'])) 
     $footerInjectPage = trim($_POST['footer_inject_page'] ?? '');
     $footerInjectPost = trim($_POST['footer_inject_post'] ?? '');
     $postsPerPage = (int) ($_POST['posts_per_page'] ?? 20);
+    $language = trim($_POST['language'] ?? '');
     $timezone = trim($_POST['timezone'] ?? '');
     $dateFormat = trim($_POST['date_format'] ?? '');
     $baseUrl = trim($_POST['base_url'] ?? '');
     $homepageSlug = trim($_POST['homepage_slug'] ?? '');
     $blogPageSlug = trim($_POST['blog_page_slug'] ?? '');
     $ogImagePreferred = trim($_POST['og_image_preferred'] ?? 'banner');
-    $hideHomepageTitle = !empty($_POST['hide_homepage_title']);
-    $hideBlogPageTitle = !empty($_POST['hide_blog_page_title']);
     $cacheEnabled = !empty($_POST['cache_enabled']);
     $rssttl = max(0, (int) ($_POST['rss_ttl'] ?? 3600));
 
@@ -79,13 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['admin_action_id'])) 
         $config['footer_inject_page'] = $footerInjectPage;
         $config['footer_inject_post'] = $footerInjectPost;
         $config['posts_per_page'] = $postsPerPage;
+        $config['language'] = $language !== '' ? $language : 'en';
         $config['timezone'] = $timezone;
         $config['date_format'] = $dateFormat;
         $config['base_url'] = $baseUrl;
         $config['homepage_slug'] = $homepageSlug;
         $config['blog_page_slug'] = $blogPageSlug;
-        $config['hide_homepage_title'] = $hideHomepageTitle;
-        $config['hide_blog_page_title'] = $hideBlogPageTitle;
         $config['cache']['enabled'] = $cacheEnabled;
         $config['cache']['rss_ttl'] = $rssttl;
 
@@ -166,6 +164,9 @@ require __DIR__ . '/../includes/admin-head.php';
                 <label for="posts_per_page">Posts per page</label>
                 <input type="number" id="posts_per_page" name="posts_per_page" min="1" max="100" value="<?= e((string) ($config['posts_per_page'] ?? 20)) ?>">
 
+                <label for="language">Language <span class="tip">(<a href="https://www.w3schools.com/tags/ref_language_codes.asp" target="_blank" rel="noopener noreferrer">language code</a>, e.g. en, fr, pt-BR)</span></label>
+                <input type="text" id="language" name="language" value="<?= e((string) ($config['language'] ?? 'en')) ?>" placeholder="en">
+
                 <label for="timezone">Timezone <span class="tip">(<a href="https://www.php.net/manual/en/timezones.php" target="_blank" rel="noopener noreferrer">PHP timezone list</a>)</span></label>
                 <input type="text" id="timezone" name="timezone" value="<?= e((string) ($config['timezone'] ?? date_default_timezone_get())) ?>" placeholder="UTC" required>
 
@@ -181,11 +182,6 @@ require __DIR__ . '/../includes/admin-head.php';
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <label class="inline-checkbox" for="hide_homepage_title">
-                    <input type="checkbox" id="hide_homepage_title" name="hide_homepage_title" <?= !empty($config['hide_homepage_title']) ? 'checked' : '' ?>>
-                    Hide homepage title
-                </label>
-
                 <label for="blog_page_slug">Blog page</label>
                 <select id="blog_page_slug" name="blog_page_slug">
                     <option value="">Use homepage</option>
@@ -196,10 +192,6 @@ require __DIR__ . '/../includes/admin-head.php';
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <label class="inline-checkbox" for="hide_blog_page_title">
-                    <input type="checkbox" id="hide_blog_page_title" name="hide_blog_page_title" <?= !empty($config['hide_blog_page_title']) ? 'checked' : '' ?>>
-                    Hide blog page title
-                </label>
 
                 <label for="base_url">Base URL</label>
                 <input type="text" id="base_url" name="base_url" value="<?= e($config['base_url']) ?>">
