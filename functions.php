@@ -1126,12 +1126,45 @@ function load_yaml_list(string $path): array
         return [];
     }
 
-    $items = [];
+    $items   = [];
     $current = null;
-    foreach ($lines as $line) {
-        $line = rtrim($line);
+
+    // Block scalar state
+    $blockKey    = null;
+    $blockLines  = [];
+    $blockIndent = null;
+    $blockFold   = false;
+
+    $flushBlock = function () use (&$current, &$blockKey, &$blockLines, &$blockIndent, &$blockFold): void {
+        if ($blockKey === null || $current === null) {
+            return;
+        }
+        // Remove trailing empty lines
+        while (count($blockLines) > 0 && end($blockLines) === '') {
+            array_pop($blockLines);
+        }
+        if ($blockFold) {
+            $result = '';
+            foreach ($blockLines as $bl) {
+                if ($bl === '') {
+                    $result = rtrim($result) . "\n\n";
+                } else {
+                    $result .= $bl . ' ';
+                }
+            }
+            $current[$blockKey] = rtrim($result);
+        } else {
+            $current[$blockKey] = implode("\n", $blockLines);
+        }
+        $blockKey    = null;
+        $blockLines  = [];
+        $blockIndent = null;
+        $blockFold   = false;
+    };
+
+    $parseLine = function (string $line) use (&$items, &$current, &$blockKey, &$blockLines, &$blockIndent, &$blockFold, $flushBlock): void {
         if ($line === '' || str_starts_with(ltrim($line), '#')) {
-            continue;
+            return;
         }
 
         if (preg_match('/^\s*-\s*(.*)$/', $line, $matches)) {
@@ -1139,21 +1172,64 @@ function load_yaml_list(string $path): array
                 $items[] = $current;
             }
             $current = [];
-            $rest = trim($matches[1]);
+            $rest    = trim($matches[1]);
             if ($rest !== '' && strpos($rest, ':') !== false) {
                 [$key, $value] = array_map('trim', explode(':', $rest, 2));
-                $current[$key] = trim($value, "\"'");
+                $value = trim($value, "\"'");
+                if ($value === '|' || $value === '>') {
+                    $blockKey  = $key;
+                    $blockFold = ($value === '>');
+                } else {
+                    $current[$key] = $value;
+                }
             }
-            continue;
+            return;
         }
 
         if ($current === null || strpos(ltrim($line), ':') === false) {
-            continue;
+            return;
         }
 
         [$key, $value] = array_map('trim', explode(':', trim($line), 2));
-        $current[$key] = trim($value, "\"'");
+        $value = trim($value, "\"'");
+        if ($value === '|' || $value === '>') {
+            $blockKey  = $key;
+            $blockFold = ($value === '>');
+        } else {
+            $current[$key] = $value;
+        }
+    };
+
+    foreach ($lines as $line) {
+        $line = rtrim($line);
+
+        if ($blockKey !== null) {
+            // Blank lines are preserved within a block scalar
+            if ($line === '') {
+                $blockLines[] = '';
+                continue;
+            }
+
+            $lineIndent = strlen($line) - strlen(ltrim($line));
+
+            // First non-empty line sets the indentation level
+            if ($blockIndent === null) {
+                $blockIndent = $lineIndent;
+            }
+
+            if ($lineIndent >= $blockIndent) {
+                $blockLines[] = substr($line, $blockIndent);
+                continue;
+            }
+
+            // Less indented — end of block, process the triggering line normally
+            $flushBlock();
+        }
+
+        $parseLine($line);
     }
+
+    $flushBlock();
 
     if ($current !== null) {
         $items[] = $current;
@@ -1605,15 +1681,28 @@ function filter_posts_by_query(array $posts, string $query): array
         return $posts;
     }
 
-    $needle = mb_strtolower($query);
-    return array_values(array_filter($posts, function (array $post) use ($needle): bool {
-        $haystack = implode(' ', [
+    // Split into individual words so multi-word queries match posts containing all terms
+    $words = preg_split('/\s+/u', mb_strtolower($query), -1, PREG_SPLIT_NO_EMPTY);
+    if (empty($words)) {
+        return $posts;
+    }
+
+    return array_values(array_filter($posts, function (array $post) use ($words): bool {
+        $raw = implode(' ', [
             (string) ($post['title'] ?? ''),
             (string) ($post['description'] ?? ''),
             (string) ($post['excerpt'] ?? ''),
             implode(' ', $post['tags'] ?? []),
         ]);
-        return mb_stripos($haystack, $needle) !== false;
+        // Strip emoji and other non-letter/digit/punctuation characters so they
+        // don't prevent matches (e.g. a title like "📚 Flybot" still matches "flybot")
+        $haystack = mb_strtolower((string) preg_replace('/[^\p{L}\p{N}\p{P}\s]/u', ' ', $raw));
+        foreach ($words as $word) {
+            if (mb_strpos($haystack, $word) === false) {
+                return false;
+            }
+        }
+        return true;
     }));
 }
 
