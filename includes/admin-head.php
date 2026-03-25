@@ -1,5 +1,11 @@
 <?php
 // Shared admin <head>. Expects $adminTitle (optional) and $fontStack (optional).
+// Compat shim: if this file is included mid-request by the old 1.9.7 updater,
+// functions.php in memory won't have t() yet. Define a no-op fallback so the
+// page renders (with raw keys) rather than crashing with "undefined function".
+if (!function_exists('t')) {
+    function t(string $key, array $replacements = []): string { return $key; }
+}
 $adminTitle = $adminTitle ?? 'Admin - Pureblog';
 $fontStack = $fontStack ?? font_stack_css($config['theme']['admin_font_stack'] ?? 'sans');
 $adminColorMode = $adminColorMode ?? ($config['theme']['admin_color_mode'] ?? 'auto');
@@ -14,11 +20,11 @@ if (!$hideAdminNav && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset(
     $actionId = preg_replace('/[^a-z0-9_-]/', '', $actionId) ?? '';
     if ($actionId === 'clear_cache') {
         cache_clear();
-        $_SESSION['admin_action_flash'] = ['ok' => true, 'message' => 'Cache cleared.'];
+        $_SESSION['admin_action_flash'] = ['ok' => true, 'message' => t('admin.nav.cache_cleared')];
     } elseif ($actionId !== '') {
         $_SESSION['admin_action_flash'] = run_admin_action($actionId);
     } else {
-        $_SESSION['admin_action_flash'] = ['ok' => false, 'message' => 'Invalid admin action.'];
+        $_SESSION['admin_action_flash'] = ['ok' => false, 'message' => t('admin.nav.invalid_action')];
     }
     $redirectTo = (string) ($_SERVER['REQUEST_URI'] ?? '/admin/dashboard.php');
     header('Location: ' . $redirectTo);
@@ -78,10 +84,10 @@ unset($_SESSION['admin_action_flash']);
         ?>
         <nav class="admin-nav" aria-label="Admin">
             <ul class="admin-nav-list">
-                <li><a href="<?= base_path() ?>/admin/dashboard.php"<?= $adminPath === 'admin/dashboard.php' ? ' class="current"' : '' ?>><svg class="icon" aria-hidden="true"><use href="#icon-circle-gauge"></use></svg> Dashboard</a></li>
-                <li><a href="<?= base_path() ?>/admin/pages.php"<?= $adminPath === 'admin/pages.php' ? ' class="current"' : '' ?>><svg class="icon" aria-hidden="true"><use href="#icon-file-text"></use></svg> Pages</a></li>
-                <li><a href="<?= base_path() ?>/admin/settings-site.php"<?= $isSettings ? ' class="current"' : '' ?>><svg class="icon" aria-hidden="true"><use href="#icon-settings"></use></svg> Settings</a></li>
-                <li><a target="_blank" rel="noopener noreferrer" href="<?= base_path() ?>/"><svg class="icon" aria-hidden="true"><use href="#icon-eye"></use></svg> View site</a></li>
+                <li><a href="<?= base_path() ?>/admin/dashboard.php"<?= $adminPath === 'admin/dashboard.php' ? ' class="current"' : '' ?>><svg class="icon" aria-hidden="true"><use href="#icon-circle-gauge"></use></svg> <?= e(t('admin.nav.dashboard')) ?></a></li>
+                <li><a href="<?= base_path() ?>/admin/pages.php"<?= $adminPath === 'admin/pages.php' ? ' class="current"' : '' ?>><svg class="icon" aria-hidden="true"><use href="#icon-file-text"></use></svg> <?= e(t('admin.nav.pages')) ?></a></li>
+                <li><a href="<?= base_path() ?>/admin/settings-site.php"<?= $isSettings ? ' class="current"' : '' ?>><svg class="icon" aria-hidden="true"><use href="#icon-settings"></use></svg> <?= e(t('admin.nav.settings')) ?></a></li>
+                <li><a target="_blank" rel="noopener noreferrer" href="<?= base_path() ?>/"><svg class="icon" aria-hidden="true"><use href="#icon-eye"></use></svg> <?= e(t('admin.nav.view_site')) ?></a></li>
                 <?php if (!empty($config['cache']['enabled'])): ?>
                     <li>
                         <form method="post" action="<?= e($_SERVER['REQUEST_URI'] ?? '/admin/dashboard.php') ?>" class="inline-form">
@@ -89,7 +95,7 @@ unset($_SESSION['admin_action_flash']);
                             <input type="hidden" name="admin_action_id" value="clear_cache">
                             <button class="delete" type="submit" class="link-button">
                                 <svg class="icon" aria-hidden="true"><use href="#icon-circle-x"></use></svg>
-                                Clear cache
+                                <?= e(t('admin.nav.clear_cache')) ?>
                             </button>
                         </form>
                     </li>
@@ -117,7 +123,7 @@ unset($_SESSION['admin_action_flash']);
                         <?= csrf_field() ?>
                         <button type="submit" class="link-button delete">
                             <svg class="icon" aria-hidden="true"><use href="#icon-log-out"></use></svg>
-                            Log out
+                            <?= e(t('admin.nav.log_out')) ?>
                         </button>
                     </form>
                 </li>
@@ -126,5 +132,8 @@ unset($_SESSION['admin_action_flash']);
         <?php if (is_array($adminActionFlash) && isset($adminActionFlash['message'])): ?>
             <?php $flashOk = (bool) ($adminActionFlash['ok'] ?? false); ?>
             <p class="notice<?= $flashOk ? '' : ' delete' ?>" data-auto-dismiss><?= e((string) $adminActionFlash['message']) ?></p>
+        <?php endif; ?>
+        <?php if (!is_dir(PUREBLOG_BASE_PATH . '/lang')): ?>
+            <p class="notice delete">Language files are missing — this can happen after updating from 1.9.7. <a href="<?= base_path() ?>/admin/settings-updates.php?repair_lang=1">Click here to repair automatically</a>.</p>
         <?php endif; ?>
     <?php endif; ?>
