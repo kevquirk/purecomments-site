@@ -14,6 +14,27 @@ $codeMirror = $codeMirror ?? null; // 'markdown' or 'css'
 $hideAdminNav = $hideAdminNav ?? false;
 $adminCssVersion = (string) @filemtime(__DIR__ . '/../admin/css/admin.css');
 
+if (!$hideAdminNav && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['search_page_action'])) {
+    verify_csrf();
+    if ($_POST['search_page_action'] === 'create') {
+        $newPage = [
+            'title'          => 'Search',
+            'slug'           => 'search',
+            'status'         => 'published',
+            'description'    => 'Search posts on this site.',
+            'include_in_nav' => true,
+            'content'        => '',
+        ];
+        $saveError = null;
+        save_page($newPage, null, null, $saveError);
+        $_SESSION['admin_action_flash'] = ['ok' => true, 'message' => t('admin.settings.site.notice_search_created')];
+    }
+    $config['search_page_notified'] = true;
+    save_config($config);
+    header('Location: ' . ($_SERVER['REQUEST_URI'] ?? '/admin/dashboard.php'));
+    exit;
+}
+
 if (!$hideAdminNav && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['admin_action_id'])) {
     verify_csrf();
     $actionId = strtolower(trim((string) ($_POST['admin_action_id'] ?? '')));
@@ -134,6 +155,24 @@ unset($_SESSION['admin_action_flash']);
             <p class="notice<?= $flashOk ? '' : ' delete' ?>" data-auto-dismiss><?= e((string) $adminActionFlash['message']) ?></p>
         <?php endif; ?>
         <?php if (!is_dir(PUREBLOG_BASE_PATH . '/lang')): ?>
-            <p class="notice delete">Language files are missing — this can happen after updating from 1.9.7. <a href="<?= base_path() ?>/admin/settings-updates.php?repair_lang=1">Click here to repair automatically</a>.</p>
+            <p class="notice delete"><?= e(t('admin.notices.lang_missing')) ?> <a href="<?= base_path() ?>/admin/settings-updates.php?repair_lang=1"><?= e(t('admin.notices.lang_missing_repair')) ?></a>.</p>
+        <?php endif; ?>
+        <?php
+        $searchSlug = trim((string) ($config['search_page_slug'] ?? 'search'));
+        if ($searchSlug !== '' && empty($config['search_page_notified']) && get_page_by_slug($searchSlug) === null):
+        ?>
+            <div class="notice">
+                <?= e(t('admin.settings.site.notice_search_missing', ['slug' => $searchSlug])) ?>
+                <form method="post" action="<?= e($_SERVER['REQUEST_URI'] ?? '') ?>" style="display:inline">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="search_page_action" value="create">
+                    <button type="submit" class="autosave-btn"><?= e(t('admin.settings.site.create_search_page')) ?></button>
+                </form>
+                <form method="post" action="<?= e($_SERVER['REQUEST_URI'] ?? '') ?>" style="display:inline">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="search_page_action" value="dismiss">
+                    <button type="submit" class="autosave-btn delete"><?= e(t('admin.settings.site.dismiss_search_notice')) ?></button>
+                </form>
+            </div>
         <?php endif; ?>
     <?php endif; ?>

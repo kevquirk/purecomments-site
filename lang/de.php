@@ -1,8 +1,11 @@
 <?php
 
+
 return [
 
+
     'name' => 'Deutsch',
+
 
     // -------------------------------------------------------------------------
     // Date localisation
@@ -26,6 +29,7 @@ return [
         ],
     ],
 
+
     // -------------------------------------------------------------------------
     // Frontend (public-facing)
     // -------------------------------------------------------------------------
@@ -38,28 +42,40 @@ return [
         'next_post'             => 'Nächster Beitrag ➡',
         'post_not_found'        => 'Beitrag nicht gefunden',
         'post_not_found_detail' => 'Der angeforderte Beitrag konnte nicht gefunden werden.',
+        'search_label'          => 'Beiträge suchen',
+        'search_placeholder'    => 'Nach einem Beitrag suchen …',
+        'search_button'         => 'Suchen',
+        'search_empty'          => 'Gib einen Suchbegriff ein, um Beiträge zu finden.',
+        'no_posts_found'        => 'Keine Beiträge für „{search}" gefunden.',
+        'search_result'         => '{n} Ergebnis gefunden.',
+        'search_results'        => '{n} Ergebnisse gefunden.',
+        'page_not_found'        => 'Seite nicht gefunden',
+        'page_not_found_detail' => 'Die angeforderte Seite konnte nicht gefunden werden.',
     ],
+
 
     // -------------------------------------------------------------------------
     // Admin
     // -------------------------------------------------------------------------
     'admin' => [
 
+
         'nav' => [
             'dashboard'     => 'Dashboard',
             'pages'         => 'Seiten',
             'settings'      => 'Einstellungen',
-            'view_site'     => 'Website ansehen',
+            'view_site'     => 'Blog ansehen',
             'clear_cache'   => 'Cache leeren',
             'log_out'       => 'Abmelden',
             'cache_cleared' => 'Cache geleert.',
             'invalid_action'=> 'Ungültige Admin-Aktion.',
         ],
 
+
         'login' => [
             'page_title'     => 'Admin-Login – Pure Blog',
             'heading'        => 'Admin-Login',
-            'setup_complete' => 'Einrichtung abgeschlossen. Anmelden um fortzufahren.',
+            'setup_complete' => 'Einrichtung abgeschlossen. Anmelden, um fortzufahren.',
             'username'       => 'Benutzername',
             'password'       => 'Passwort',
             'submit'         => 'Anmelden',
@@ -68,11 +84,12 @@ return [
             'error_lockout_5'=> 'Zu viele ungültige Versuche. Versuch es in 5 Minuten erneut.',
         ],
 
+
         'dashboard' => [
             'page_title'           => 'Dashboard – Pure Blog',
             'stat_published'       => 'Veröffentlichte Beiträge',
             'stat_this_year'       => 'Beiträge in {year}',
-            'stat_last_published'  => 'Letzter veröffentlichter Beitrag',
+            'stat_last_published'  => 'Jüngster Beitrag',
             'stat_top_tags'        => 'Top-Tags',
             'stat_no_tags'         => 'Noch keine Tags',
             'time_just_now'        => 'Gerade eben',
@@ -88,13 +105,14 @@ return [
             'cancel'               => 'Abbrechen',
             'search_label'         => 'Beiträge suchen',
             'search_placeholder'   => 'Nach einem Beitrag suchen …',
-            'no_posts_found'       => 'Keine Beiträge für „{search}“ gefunden.',
+            'no_posts_found'       => 'Keine Beiträge für „{search}” gefunden.',
             'no_posts'             => 'Noch keine Beiträge – fang an zu schreiben!',
             'notice_saved'         => 'Beitrag gespeichert.',
             'notice_deleted'       => 'Beitrag gelöscht.',
             'pagination_newer'     => '← Neuere Beiträge',
             'pagination_older'     => 'Ältere Beiträge →',
         ],
+
 
         'editor' => [
             'title_label'           => 'Titel',
@@ -121,7 +139,51 @@ return [
             'error_invalid_status'  => 'Status muss „Entwurf“ oder „Veröffentlicht“ sein.',
             'error_save_post'       => 'Konnte Beitrag nicht speichern.',
             'error_save_page'       => 'Konnte Seite nicht speichern.',
-            'tip_markdown'          => 'Markdown',
+            'tip_markdown'               => 'Markdown',
+            'error_empty_slug'           => 'Der Titel muss mindestens einen Buchstaben oder eine Zahl enthalten, damit ein Slug generiert werden kann.',
+            'preview_title'              => 'Vorschau',
+            'error_upload_no_slug'       => 'Speichere den Beitrag zuerst, damit ein Slug generiert werden kann.',
+            'error_upload_no_file'       => 'Kein Bild hochgeladen.',
+            'error_upload_failed'        => 'Upload fehlgeschlagen.',
+            'error_upload_too_large'     => 'Bild ist zu groß. Maximale Größe: 3 MB.',
+            'error_upload_type'          => 'Nicht unterstützter Bildtyp. Verwende JPG, PNG, GIF, WebP oder AVIF.',
+            'error_upload_invalid_slug'  => 'Ungültiger Slug für den Bildordner.',
+            'error_image_folder_missing' => 'Bildordner nicht gefunden.',
+            'error_upload_folder_create' => 'Bildordner konnte nicht erstellt werden.',
+            'error_image_invalid_path'   => 'Ungültiger Bildpfad.',
+            'error_upload_invalid_name'  => 'Ungültiger Dateiname.',
+            'error_upload_duplicate'     => 'Name bereits vergeben – bitte benenne das Bild um (bereinigt als „{filename}“).',
+            'error_upload_save'          => 'Hochgeladene Datei konnte nicht gespeichert werden.',
+            'error_delete_missing_data'  => 'Bilddaten fehlen.',
+            'error_image_not_found'      => 'Bild nicht gefunden.',
+            'error_delete_failed'        => 'Bild konnte nicht gelöscht werden.',
+            'error_autosave_method'      => 'Methode nicht erlaubt',
+            'error_autosave_csrf'        => 'Ungültiges CSRF-Token',
+            'error_autosave_slug'        => 'Slug erforderlich',
+            'error_autosave_write'       => 'Automatisches Speichern fehlgeschlagen',
+            'js_autosaving'  => 'Wird gespeichert…',
+            'js_autosaved'  => 'Gespeichert',
+            'js_autosave_failed'  => 'Automatisches Speichern fehlgeschlagen',
+            'js_autosave_banner'  => 'Automatisch gespeicherte Änderungen von {time} vorhanden.',
+            'js_view'  => 'Anzeigen',
+            'js_hide'  => 'Ausblenden',
+            'js_restore'  => 'Wiederherstellen',
+            'js_discard'  => 'Verwerfen',
+            'js_title_label'  => 'Titel:',
+            'js_save_failed'  => 'Speichern fehlgeschlagen',
+            'js_save_before_upload'  => 'Beitrag zuerst speichern, bevor ein Bild hochgeladen wird.',
+            'js_copied'  => 'Kopiert',
+            'js_copy_failed'  => 'Kopieren fehlgeschlagen. Bitte manuell kopieren.',
+            'js_save_post_first'  => 'Beitrag zuerst speichern, damit er einen Slug und ein Datum hat.',
+            'js_save_page_first'  => 'Seite zuerst speichern, damit sie einen Slug hat.',
+            'js_upload_failed'  => 'Bild-Upload fehlgeschlagen.',
+        ],
+
+
+
+        'notices' => [
+            'lang_missing'        => 'Sprachdateien fehlen — dies kann nach einem Update von 1.9.7 passieren.',
+            'lang_missing_repair' => 'Hier klicken, um automatisch zu reparieren',
         ],
 
         'post_editor' => [
@@ -136,6 +198,7 @@ return [
             'edit_title'          => 'Beitrag bearbeiten – Pure Blog',
             'new_title'           => 'Neuer Beitrag – Pure Blog',
         ],
+
 
         'page_editor' => [
             'page_title'          => 'Seiteneditor',
@@ -152,6 +215,7 @@ return [
             'new_title'           => 'Neue Seite – Pure Blog',
         ],
 
+
         'delete_post' => [
             'page_title'     => 'Beitrag löschen – Pure Blog',
             'heading'        => 'Beitrag löschen',
@@ -162,6 +226,7 @@ return [
             'error_not_found'=> 'Beitrag nicht gefunden.',
             'error_delete'   => 'Konnte Beitrag nicht löschen.',
         ],
+
 
         'delete_page' => [
             'page_title'     => 'Seite löschen – Pure Blog',
@@ -174,6 +239,7 @@ return [
             'error_delete'   => 'Konnte Seite nicht löschen.',
         ],
 
+
         'pages' => [
             'page_title'     => 'Seiten – Pure Blog',
             'heading'        => 'Seiten',
@@ -183,10 +249,19 @@ return [
             'notice_deleted' => 'Seite gelöscht.',
         ],
 
+
+
+        'footer' => [
+            'created_by' => 'wurde mit 💙 erstellt von',
+            'docs'       => 'Dokumentation lesen',
+            'mastodon'   => 'Auf Mastodon finden',
+            'source'     => 'Quellcode',
+        ],
         'settings' => [
 
+
             'nav' => [
-                'site'    => 'Website',
+                'site'    => 'Blog',
                 'theme'   => 'Theme',
                 'css'     => 'CSS',
                 'user'    => 'Benutzer',
@@ -194,14 +269,15 @@ return [
                 'save'    => 'Einstellungen speichern',
             ],
 
+
             'site' => [
-                'page_title'         => 'Website-Einstellungen – Pure Blog',
-                'heading'            => 'Website-Einstellungen',
-                'section_title'      => 'Website-Einstellungen',
-                'site_title'         => 'Website-Titel',
-                'tagline'            => 'Website-Slogan (optional)',
-                'description'        => 'Website-Beschreibung',
-                'email'              => 'Website-E-Mail (optional)',
+                'page_title'         => 'Blog-Einstellungen – Pure Blog',
+                'heading'            => 'Blog-Einstellungen',
+                'section_title'      => 'Blog-Einstellungen',
+                'site_title'         => 'Blog-Titel',
+                'tagline'            => 'Blog-Slogan (optional)',
+                'description'        => 'Blog-Beschreibung',
+                'email'              => 'Blog-E-Mail (optional)',
                 'posts_per_page'            => 'Beiträge pro Seite',
                 'search_excerpt_length'     => 'Länge des Suchauszugs',
                 'search_excerpt_length_tip' => 'Anzahl der pro Beitrag indizierten Zeichen für die Suche. Größere Werte verbessern die Suchgenauigkeit, erhöhen aber den Speicherbedarf. Auf 0 setzen, um den vollständigen Beitragsinhalt zu indizieren.',
@@ -224,16 +300,27 @@ return [
                 'cache_section'      => 'Cache',
                 'cache_enable'       => 'Seiten-Cache aktivieren',
                 'rss_ttl'            => 'RSS-Cache-Dauer',
-                'header_injects'     => 'Header-Injektionen',
-                'footer_injects'     => 'Footer-Injektionen',
+                'header_injects'          => 'Header-Injektionen',
+                'head_inject_page_label'  => 'Seiten-Kopf-HTML',
+                'head_inject_post_label'  => 'Beitrags-Kopf-HTML',
+                'footer_injects'          => 'Footer-Injektionen',
+                'footer_inject_page_label'=> 'Seiten-Footer-HTML',
+                'footer_inject_post_label'=> 'Beitrags-Footer-HTML',
                 'notice_updated'     => 'Einstellungen aktualisiert.',
                 'error_save'         => 'Speichern der Einstellungen fehlgeschlagen.',
-                'error_title'        => 'Website-Titel ist erforderlich.',
+                'error_title'        => 'Blog-Titel ist erforderlich.',
                 'error_posts_per_page'=> 'Beiträge pro Seite muss zwischen 1 und 100 liegen.',
                 'error_timezone'     => 'Zeitzone muss ein gültiger PHP-Zeitzonenbezeichner sein (z. B. UTC, Europe/Berlin).',
                 'error_date_format'  => 'Datumsformat ist erforderlich.',
                 'error_homepage'     => 'Startseite muss auf eine vorhandene Seite verweisen.',
                 'error_blog_page'    => 'Blog-Seite muss auf eine vorhandene Seite verweisen.',
+                'search_page'        => 'Suchseite',
+                'search_page_none'   => 'Keine (deaktiviert)',
+                'error_search_page'       => 'Die Suchseite muss auf eine vorhandene Seite verweisen.',
+                'notice_search_missing'   => 'Die Standard-Suchseite („{slug}") existiert noch nicht.',
+                'notice_search_created'   => 'Standard-Suchseite erstellt.',
+                'create_search_page'      => 'Standard-Suchseite erstellen',
+                'dismiss_search_notice'   => 'Schließen',
                 'error_og_format'        => 'Das Open-Graph-Bildformat muss „Banner“ oder „Quadratisch“ sein.',
                 'current'                => 'Aktuell',
                 'tip_language_link'      => 'Sprachcode',
@@ -245,6 +332,7 @@ return [
                 'tip_optional'           => 'optional',
                 'tip_rss_ttl'            => 'Sekunden, 0 zum Deaktivieren',
             ],
+
 
             'user' => [
                 'page_title'           => 'Benutzereinstellungen – Pure Blog',
@@ -262,18 +350,62 @@ return [
                 'error_password_wrong' => 'Aktuelles Passwort ist falsch.',
             ],
 
+
             'theme' => [
-                'page_title'        => 'Theme-Einstellungen – Pure Blog',
-                'heading'           => 'Theme- & Layout-Einstellungen',
-                'notice_updated'    => 'Einstellungen aktualisiert.',
-                'notice_reset'      => 'Theme-Farben auf Standardwerte zurückgesetzt.',
-                'error_save'        => 'Einstellungen konnten nicht gespeichert werden.',
-                'error_font'        => 'Schriftart muss „sans“, „serif“ oder „mono“ sein.',
-                'error_admin_font'  => 'Admin-Schriftart muss „sans“, „serif“ oder „mono“ sein.',
-                'error_admin_color' => 'Admin-Farbmodus muss „light“, „dark“ oder „auto“ sein.',
-                'error_color_mode'  => 'Farbmodus muss „light“, „dark“ oder „auto“ sein.',
-                'error_post_layout' => 'Beitragslisten-Layout muss „excerpt“, „full“ oder „archive“ sein.',
+                'page_title'          => 'Theme-Einstellungen – Pure Blog',
+                'heading'             => 'Theme- & Layout-Einstellungen',
+                'notice_updated'      => 'Einstellungen aktualisiert.',
+                'notice_reset'        => 'Theme-Farben auf Standardwerte zurückgesetzt.',
+                'error_save'          => 'Einstellungen konnten nicht gespeichert werden.',
+                'error_font'          => 'Schriftart muss „sans”, „serif” oder „mono” sein.',
+                'error_admin_font'    => 'Admin-Schriftart muss „sans”, „serif” oder „mono” sein.',
+                'error_admin_color'   => 'Admin-Farbmodus muss „light”, „dark” oder „auto” sein.',
+                'error_color_mode'    => 'Farbmodus muss „light”, „dark” oder „auto” sein.',
+                'error_post_layout'   => 'Beitragslisten-Layout muss „excerpt”, „full” oder „archive” sein.',
+                'section_fonts'       => 'Schriftart-Einstellungen',
+                'site_font'           => 'Blog-Schriftart',
+                'admin_font'          => 'Admin-Schriftart',
+                'section_color_mode'  => 'Design',
+                'site_color_mode'     => 'Blog-Design',
+                'admin_color_mode'    => 'Admin-Design',
+                'color_light'         => 'Hell',
+                'color_dark'          => 'Dunkel',
+                'color_auto'          => 'Auto',
+                'section_colors'      => 'Eigene Farbauswahl',
+                'gallery_promo'       => 'Lass dich in der {link} von Pure Blog inspirieren.',
+                'gallery_link'        => 'Themen-Galerie',
+                'light_mode'          => 'Helles Design',
+                'dark_mode'           => 'Dunkles Design',
+                'color_background'    => 'Hintergrundfarbe',
+                'color_text'          => 'Textfarbe',
+                'color_accent'        => 'Akzentfarbe',
+                'color_border'        => 'Rahmenfarbe',
+                'color_accent_bg'     => 'Akzenthintergrund',
+                'reset_light'         => 'Helle Farben zurücksetzen',
+                'reset_light_confirm' => 'Helle Farben auf Standardwerte zurücksetzen?',
+                'reset_dark'          => 'Dunkle Farben zurücksetzen',
+                'reset_dark_confirm'  => 'Dunkle Farben auf Standardwerte zurücksetzen?',
+                'section_post_layout' => 'Ansicht Beitragsliste',
+                'layout_excerpt'      => 'Beitragsauszug',
+                'layout_full'         => 'Ganzer Beitrag',
+                'layout_archive'      => 'Datum & Titel',
             ],
+
+
+            'css' => [
+                'page_title'        => 'Benutzerdefiniertes CSS – Pure Blog',
+                'heading'           => 'CSS-Einstellungen',
+                'notice_saved'      => 'CSS gespeichert.',
+                'error_save_front'  => 'Konnte Frontend-CSS nicht speichern.',
+                'error_save_admin'  => 'Konnte Admin-CSS nicht speichern.',
+                'error_dir_front'   => 'Konnte Frontend-CSS-Verzeichnis nicht erstellen.',
+                'error_dir_admin'   => 'Konnte Admin-CSS-Verzeichnis nicht erstellen.',
+                'section_front'     => 'CSS der Blogansicht',
+                'section_admin'     => 'CSS der Adminansicht',
+                'placeholder_front' => 'Gestalte dein Blog mit eigenem CSS …',
+                'placeholder_admin' => 'Eigenes CSS für die Admin-Oberfläche hinzufügen …',
+            ],
+
 
             'updates' => [
                 'page_title'            => 'Updates – Pure Blog',
@@ -314,33 +446,80 @@ return [
                 'already_latest'        => 'Du verwendest bereits die neueste Version.',
                 'update_completed'      => 'Update abgeschlossen.',
                 'update_failed'         => 'Update fehlgeschlagen.',
+                'notice_update_applied'      => 'Update erfolgreich angewendet.',
+                'notice_backup_restored'     => 'Backup erfolgreich wiederhergestellt.',
+                'notice_backup_deleted'      => 'Backup erfolgreich gelöscht.',
+                'notice_lang_restored'       => 'Sprachdateien erfolgreich wiederhergestellt.',
+                'already_latest_version'     => 'Du verwendest bereits die neueste Version ({tag}).',
+                'error_curl_init'            => 'curl konnte nicht initialisiert werden.',
+                'error_github_request'       => 'GitHub-Anfrage fehlgeschlagen (HTTP {status}).',
+                'error_github_network'       => 'GitHub-Prüfung fehlgeschlagen (Netzwerk nicht verfügbar oder allow_url_fopen deaktiviert).',
+                'error_github_json'          => 'GitHub hat ungültiges JSON zurückgegeben.',
+                'error_download_tmp'         => 'Temporäre Download-Datei konnte nicht erstellt werden.',
+                'error_download_failed'      => 'Download fehlgeschlagen (HTTP {status}).',
+                'error_download_network'     => 'Download fehlgeschlagen (Netzwerk nicht verfügbar oder allow_url_fopen deaktiviert).',
+                'error_download_write'       => 'Temporäre Download-Datei konnte nicht geschrieben werden.',
+                'error_zip_url'              => 'Keine Zipball-URL für dieses Release gefunden.',
+                'error_ziparchive'           => 'ZipArchive-Erweiterung ist auf diesem Host nicht verfügbar.',
+                'error_zip_open'             => 'Heruntergeladenes Release-Zip konnte nicht geöffnet werden.',
+                'error_zip_extract'          => 'Release-Zip konnte nicht entpackt werden.',
+                'error_zip_empty'            => 'Das Release-Archiv enthielt keine lesbaren Dateien.',
+                'error_package_invalid'      => 'Das Release-Archiv sieht nicht wie ein gültiges Pure Blog-Paket aus.',
+                'error_backup_dir'           => 'Lokales Backup-Verzeichnis unter /backup konnte nicht erstellt werden.',
+                'error_update_rolled_back'   => 'Update fehlgeschlagen und zurückgerollt: {error}',
+                'error_update_rollback_fail' => 'Update fehlgeschlagen und Rollback ebenfalls fehlgeschlagen: {error}',
+                'error_backup_invalid_name'  => 'Ungültiger Backup-Name.',
+                'error_backup_dir_missing'   => 'Backup-Verzeichnis existiert nicht.',
+                'error_backup_not_found'     => 'Ausgewähltes Backup wurde nicht gefunden.',
+                'error_backup_invalid_path'  => 'Ungültiger Backup-Pfad.',
+                'error_restore_failed'       => 'Wiederherstellung fehlgeschlagen: {error}',
+                'error_delete_backup_failed' => 'Löschen fehlgeschlagen: {error}',
+                'error_choose_restore'       => 'Bitte wähle ein Backup zur Wiederherstellung.',
+                'error_choose_delete'        => 'Bitte wähle ein Backup zum Löschen.',
+                'error_release_metadata'     => 'Release-Informationen konnten nicht von GitHub abgerufen werden.',
+                'error_lang_download'        => 'Release-Zip konnte nicht heruntergeladen werden.',
+                'error_lang_zip_open'        => 'Release-Zip konnte nicht geöffnet werden.',
+                'error_lang_zip_extract'     => 'Release-Zip konnte nicht entpackt werden.',
+                'error_lang_dir_missing'     => 'lang/-Verzeichnis nicht im Release-Paket gefunden.',
+                'error_lang_repair'          => 'Sprachreparatur fehlgeschlagen: {error}',
+                'error_build_plan'           => 'Paketplan konnte nicht erstellt werden.',
+                'error_dir_create'           => 'Verzeichnis konnte nicht erstellt werden: {path}',
+                'error_file_copy'            => 'Datei konnte nicht kopiert werden: {path}',
+                'error_dir_read'             => 'Verzeichnis konnte nicht gelesen werden: {path}',
+                'error_htaccess_dir'         => 'Verzeichnis für gesicherte .htaccess konnte nicht erstellt werden: {path}',
+                'error_htaccess_restore'     => 'Gesicherte .htaccess konnte nicht wiederhergestellt werden: {path}',
+                'error_source_missing'       => 'Quellpfad nicht gefunden: {path}',
             ],
+
 
         ],
 
+
     ],
+
 
     // -------------------------------------------------------------------------
     // Setup wizard
     // -------------------------------------------------------------------------
     'setup' => [
         'page_title'       => 'Einrichtung – Pure Blog',
-        'heading'          => 'Deine neue Website einrichten',
-        'site_title'       => 'Website-Titel',
-        'tagline'          => 'Website-Slogan (optional)',
+        'heading'          => 'Dein neues Blog einrichten',
+        'site_title'       => 'Blog-Titel',
+        'tagline'          => 'Blog-Slogan (optional)',
         'language'         => 'Sprache',
-        'base_url'         => 'Website-URL',
+        'base_url'         => 'Blog-URL',
         'username'         => 'Admin-Benutzername',
         'password'         => 'Admin-Passwort',
         'confirm_password' => 'Passwort bestätigen',
-        'submit'           => 'Website erstellen',
-        'error_title'      => 'Website-Titel ist erforderlich.',
+        'submit'           => 'Blog erstellen',
+        'error_title'      => 'Blog-Titel ist erforderlich.',
         'error_username'   => 'Admin-Benutzername ist erforderlich.',
         'error_password'   => 'Passwort und Bestätigung sind erforderlich.',
         'error_mismatch'   => 'Passwörter stimmen nicht überein.',
-        'error_config_dir' => 'Konnte Konfigurationsverzeichnis nicht erstellen. Überprüf die Berechtigungen.',
-        'error_config_write'  => 'Konnte Konfigurationsdatei nicht schreiben. Überprüf die Berechtigungen.',
+        'error_config_dir' => 'Konnte Konfigurationsverzeichnis nicht erstellen. Überprüfe die Berechtigungen.',
+        'error_config_write'  => 'Konnte Konfigurationsdatei nicht schreiben. Überprüfe die Berechtigungen.',
         'tip_language_link'   => 'Sprachcode',
     ],
+
 
 ];

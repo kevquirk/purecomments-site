@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['admin_action_id'])) 
     $baseUrl = trim($_POST['base_url'] ?? '');
     $homepageSlug = trim($_POST['homepage_slug'] ?? '');
     $blogPageSlug = trim($_POST['blog_page_slug'] ?? '');
+    $searchPageSlug = trim($_POST['search_page_slug'] ?? '');
     $ogImagePreferred = trim($_POST['og_image_preferred'] ?? 'banner');
     $cacheEnabled = !empty($_POST['cache_enabled']);
     $rssttl = max(0, (int) ($_POST['rss_ttl'] ?? 3600));
@@ -63,6 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['admin_action_id'])) 
     if ($blogPageSlug !== '' && $blogPageSlug !== $hiddenBlogValue && !isset($pageSlugLookup[$blogPageSlug])) {
         $errors[] = t('admin.settings.site.error_blog_page');
     }
+    if ($searchPageSlug !== '' && !isset($pageSlugLookup[$searchPageSlug])) {
+        $errors[] = t('admin.settings.site.error_search_page');
+    }
     if (!in_array($ogImagePreferred, ['banner', 'square'], true)) {
         $errors[] = t('admin.settings.site.error_og_format');
     }
@@ -86,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['admin_action_id'])) 
         $config['base_url'] = $baseUrl;
         $config['homepage_slug'] = $homepageSlug;
         $config['blog_page_slug'] = $blogPageSlug;
+        $config['search_page_slug'] = $searchPageSlug;
         $config['cache']['enabled'] = $cacheEnabled;
         $config['cache']['rss_ttl'] = $rssttl;
 
@@ -199,6 +204,16 @@ require __DIR__ . '/../includes/admin-head.php';
                     <?php endforeach; ?>
                 </select>
 
+                <label for="search_page_slug"><?= e(t('admin.settings.site.search_page')) ?></label>
+                <select id="search_page_slug" name="search_page_slug">
+                    <option value=""><?= e(t('admin.settings.site.search_page_none')) ?></option>
+                    <?php foreach ($pageOptions as $pageOption): ?>
+                        <option value="<?= e($pageOption['slug']) ?>"<?= ($config['search_page_slug'] ?? 'search') === $pageOption['slug'] ? ' selected' : '' ?>>
+                            <?= e($pageOption['title']) ?> (<?= e($pageOption['slug']) ?>)
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+
                 <label for="base_url"><?= e(t('admin.settings.site.base_url')) ?></label>
                 <input type="text" id="base_url" name="base_url" value="<?= e($config['base_url']) ?>">
 
@@ -228,25 +243,25 @@ require __DIR__ . '/../includes/admin-head.php';
             </section>
 
             <section class="section-divider">
-                <span class="title">Header Injects</span>
-                <label for="head_inject_page">Page head HTML <span class="tip">(<?= e(t('admin.settings.site.tip_optional')) ?>)</span></label>
+                <span class="title"><?= e(t('admin.settings.site.header_injects')) ?></span>
+                <label for="head_inject_page"><?= e(t('admin.settings.site.head_inject_page_label')) ?> <span class="tip">(<?= e(t('admin.settings.site.tip_optional')) ?>)</span></label>
                 <textarea id="head_inject_page" name="head_inject_page" rows="6" placeholder="&lt;link rel=&quot;stylesheet&quot; href=&quot;/content/css/comments.css&quot;&gt;"><?= e($config['head_inject_page'] ?? '') ?></textarea>
 
-                <label for="head_inject_post">Post head HTML <span class="tip">(<?= e(t('admin.settings.site.tip_optional')) ?>)</span></label>
+                <label for="head_inject_post"><?= e(t('admin.settings.site.head_inject_post_label')) ?> <span class="tip">(<?= e(t('admin.settings.site.tip_optional')) ?>)</span></label>
                 <textarea id="head_inject_post" name="head_inject_post" rows="6" placeholder="&lt;meta name=&quot;x-custom&quot; content=&quot;value&quot;&gt;"><?= e($config['head_inject_post'] ?? '') ?></textarea>
             </section>
 
             <section class="section-divider">
-                <span class="title">Footer Injects</span>
-                <label for="footer_inject_page">Page footer HTML <span class="tip">(<?= e(t('admin.settings.site.tip_optional')) ?>)</span></label>
+                <span class="title"><?= e(t('admin.settings.site.footer_injects')) ?></span>
+                <label for="footer_inject_page"><?= e(t('admin.settings.site.footer_inject_page_label')) ?> <span class="tip">(<?= e(t('admin.settings.site.tip_optional')) ?>)</span></label>
                 <textarea id="footer_inject_page" name="footer_inject_page" rows="6" placeholder="&lt;script src=&quot;/assets/js/page-only.js&quot; defer&gt;&lt;/script&gt;"><?= e($config['footer_inject_page'] ?? '') ?></textarea>
 
-                <label for="footer_inject_post">Post footer HTML <span class="tip">(<?= e(t('admin.settings.site.tip_optional')) ?>)</span></label>
+                <label for="footer_inject_post"><?= e(t('admin.settings.site.footer_inject_post_label')) ?> <span class="tip">(<?= e(t('admin.settings.site.tip_optional')) ?>)</span></label>
                 <textarea id="footer_inject_post" name="footer_inject_post" rows="6" placeholder="&lt;script src=&quot;/assets/js/post-only.js&quot; defer&gt;&lt;/script&gt;"><?= e($config['footer_inject_post'] ?? '') ?></textarea>
             </section>
 
             <section class="section-divider">
-                <span class="title">Cache</span>
+                <span class="title"><?= e(t('admin.settings.site.cache_section')) ?></span>
                 <label class="inline-checkbox" for="cache_enabled">
                     <input type="checkbox" id="cache_enabled" name="cache_enabled" <?= !empty($config['cache']['enabled']) ? 'checked' : '' ?>>
                     <?= e(t('admin.settings.site.cache_enable')) ?>
