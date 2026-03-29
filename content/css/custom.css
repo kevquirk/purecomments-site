@@ -207,3 +207,8 @@ button {
 .site-search-form button {
   padding: 0.9rem 1.25rem;
 }
+
+hr {
+  max-width: 75%;
+  margin: 4rem auto;
+}
