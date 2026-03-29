@@ -1,7 +1,7 @@
 ---
 title: Hosting Privacy Policy
 slug: hosting-privacy-policy
-status: published
+status: draft
 description: Privacy policy for the Pure Comments hosted service.
 include_in_nav: false
 ---

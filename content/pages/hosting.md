@@ -1,7 +1,7 @@
 ---
 title: Hosting
 slug: hosting
-status: published
+status: draft
 description: A managed version of Pure Comments is on the way.
 include_in_nav: true
 ---

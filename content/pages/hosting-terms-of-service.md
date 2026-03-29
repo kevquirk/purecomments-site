@@ -1,7 +1,7 @@
 ---
 title: Hosting Terms of Service
 slug: hosting-terms-of-service
-status: published
+status: draft
 description: Terms of Service for the Pure Comments managed hosted offering.
 include_in_nav: false
 ---
