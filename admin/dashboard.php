@@ -173,10 +173,35 @@ require __DIR__ . '/../includes/admin-head.php';
     <main class="mid">
 
         <p class="dashboard-write-post">
-            <a class="save" href="<?= base_path() ?>/admin/edit-post.php?action=new">
-                <svg class="icon" aria-hidden="true"><use href="#icon-file-plus-corner"></use></svg>
-                <?= e(t('admin.dashboard.write_post')) ?>
-            </a>
+            <?php $availableLayouts = get_layouts(); ?>
+            <?php if ($availableLayouts): ?>
+                <button type="button" id="new-post-button" class="save">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-file-plus-corner"></use></svg>
+                    <?= e(t('admin.dashboard.write_post')) ?>
+                </button>
+                <dialog id="layout-picker" aria-labelledby="layout-picker-title">
+                    <h2 id="layout-picker-title"><?= e(t('admin.content.choose_layout')) ?></h2>
+                    <ul class="layout-picker-list">
+                        <li><a href="<?= base_path() ?>/admin/edit-post.php?action=new"><?= e(t('admin.content.default_post')) ?></a></li>
+                        <?php foreach ($availableLayouts as $layout): ?>
+                            <li><a href="<?= base_path() ?>/admin/edit-post.php?action=new&amp;layout=<?= urlencode($layout['name']) ?>"><?= e($layout['label']) ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <button type="button" id="layout-picker-close" class="delete"><?= e(t('admin.content.cancel')) ?></button>
+                </dialog>
+                <script>
+                    const button = document.getElementById('new-post-button');
+                    const dialog = document.getElementById('layout-picker');
+                    const close = document.getElementById('layout-picker-close');
+                    button.addEventListener('click', () => dialog.showModal());
+                    close.addEventListener('click', () => dialog.close());
+                </script>
+            <?php else: ?>
+                <a class="save" href="<?= base_path() ?>/admin/edit-post.php?action=new">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-file-plus-corner"></use></svg>
+                    <?= e(t('admin.dashboard.write_post')) ?>
+                </a>
+            <?php endif; ?>
         </p>
 
         <!-- Top row: snapshot -->
@@ -237,7 +262,7 @@ require __DIR__ . '/../includes/admin-head.php';
             </div>
             <div class="dashboard-stat-card dashboard-stat-card-metric">
                 <p class="dashboard-stat-label"><?= e(t('admin.dashboard.stat_words_this_year')) ?></p>
-                <p class="dashboard-stat-value"><?= e(number_format($totalWordsThisYear)) ?><?php if ($booksThisYear > 0): ?><br><span class="dashboard-stat-books">(<?= e(number_format($booksThisYear, 1)) ?> books)</span><?php endif; ?></p>
+                <p class="dashboard-stat-value"><?= e(number_format($totalWordsThisYear)) ?><?php if ($booksThisYear > 0): ?><br><span class="dashboard-stat-books">(<?= e(number_format($booksThisYear, 1)) ?> <?= e(t('admin.dashboard.stat_books')) ?>)</span><?php endif; ?></p>
             </div>
             <div class="dashboard-stat-card dashboard-stat-card-tags">
                 <p class="dashboard-stat-label"><?= e(t('admin.dashboard.stat_top_tags')) ?></p>

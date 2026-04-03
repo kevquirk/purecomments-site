@@ -35,6 +35,7 @@ return [
     // -------------------------------------------------------------------------
     'frontend' => [
         'nav_home'              => 'Startseite',
+        'site_title_fallback'   => 'Page',
         'pagination_newer'      => '⬅ Neuere Beiträge',
         'pagination_older'      => 'Ältere Beiträge ➡',
         'no_posts'              => 'Noch keine Beiträge – fang an zu schreiben! 🙃',
@@ -51,6 +52,8 @@ return [
         'search_results'        => '{n} Ergebnisse gefunden.',
         'page_not_found'        => 'Seite nicht gefunden',
         'page_not_found_detail' => 'Die angeforderte Seite konnte nicht gefunden werden.',
+        'no_tag_selected'       => 'No tag selected.',
+        'no_posts_for_tag'      => 'No posts found for this tag.',
     ],
 
 
@@ -62,7 +65,7 @@ return [
 
         'nav' => [
             'dashboard'     => 'Dashboard',
-            'content'       => 'Seiten',
+            'content'       => 'Inhalte',
             'settings'      => 'Einstellungen',
             'view_site'     => 'Blog ansehen',
             'clear_cache'   => 'Cache leeren',
@@ -105,7 +108,7 @@ return [
             'write_post'           => 'Beitrag schreiben',
             'last_published'       => 'Letzter Beitrag veröffentlicht',
             'no_posts_yet'         => 'Noch keine Beiträge',
-            'version_label'        => 'Pure Blog Version',
+            'version_label'        => 'Pure-Blog-Version',
             'version_uptodate'     => 'Aktuell, gut gemacht 👍🏻',
             'version_update_link'  => '{latest} verfügbar - jetzt aktualisieren!',
             'time_just_now'        => 'Gerade eben',
@@ -119,19 +122,19 @@ return [
 
 
         'content' => [
-            'page_title'            => 'Content - Pure Blog',
-            'tabs_label'            => 'Content tabs',
-            'tab_posts'             => 'Posts',
-            'tab_pages'             => 'Pages',
-            'new_post'              => 'New post',
-            'choose_layout'         => 'Choose a layout',
-            'default_post'          => 'Default post',
-            'cancel'                => 'Cancel',
-            'search_label'          => 'Search posts',
-            'search_placeholder'    => 'Search for a post...',
-            'no_posts_found'        => 'No posts found for “{search}”.',
+            'page_title'            => 'Inhalte - Pure Blog',
+            'tabs_label'            => 'Inhaltsregisterkarten',
+            'tab_posts'             => 'Beiträge',
+            'tab_pages'             => 'Seiten',
+            'new_post'              => 'Neuer Beitrag',
+            'choose_layout'         => 'Layout wählen',
+            'default_post'          => 'Standard-Beitrag',
+            'cancel'                => 'Abbrechen',
+            'search_label'          => 'Beiträge suchen',
+            'search_placeholder'    => 'Nach einem Beitrag suchen …',
+            'no_posts_found'        => 'Keine Beiträge für „{search}” gefunden.',
             'no_posts_filtered'     => 'Keine Beiträge gefunden für {label}.',
-            'no_posts'              => 'No posts yet, get writing!',
+            'no_posts'              => 'Noch keine Beiträge – fang an zu schreiben!',
             'filter_title'          => 'Suche & Filter',
             'filter_year'           => 'Jahr',
             'filter_month'          => 'Monat',
@@ -145,14 +148,14 @@ return [
             'filter_active'         => 'Gefiltert nach: {label}.',
             'filter_clear'          => 'Zurücksetzen',
             'filter_recent'         => 'letzte 12 Monate',
-            'notice_post_saved'     => 'Post saved.',
-            'notice_post_deleted'   => 'Post deleted.',
-            'notice_page_saved'     => 'Page saved.',
-            'notice_page_deleted'   => 'Page deleted.',
-            'pagination_newer'      => '← Newer posts',
-            'pagination_older'      => 'Older posts →',
-            'new_page'              => 'New page',
-            'no_pages'              => 'No pages yet.',
+            'notice_post_saved'     => 'Beitrag gespeichert.',
+            'notice_post_deleted'   => 'Beitrag gelöscht.',
+            'notice_page_saved'     => 'Seite gespeichert.',
+            'notice_page_deleted'   => 'Seite gelöscht.',
+            'pagination_newer'      => '← Neuere Beiträge',
+            'pagination_older'      => 'Ältere Beiträge →',
+            'new_page'              => 'Neue Seite',
+            'no_pages'              => 'Noch keine Seiten.',
         ],
 
 
@@ -296,7 +299,7 @@ return [
         'footer' => [
             'created_by' => 'wurde mit 💙 erstellt von',
             'docs'       => 'Dokumentation lesen',
-            'mastodon'   => 'Auf Mastodon finden',
+            'mastodon'   => 'Mastodon',
             'source'     => 'Quellcode',
         ],
         'settings' => [
@@ -427,7 +430,7 @@ return [
                 'reset_light_confirm' => 'Helle Farben auf Standardwerte zurücksetzen?',
                 'reset_dark'          => 'Dunkle Farben zurücksetzen',
                 'reset_dark_confirm'  => 'Dunkle Farben auf Standardwerte zurücksetzen?',
-                'section_post_layout' => 'Ansicht Beitragsliste',
+                'section_post_layout' => 'Beitragslisten-Layout',
                 'layout_excerpt'      => 'Beitragsauszug',
                 'layout_full'         => 'Ganzer Beitrag',
                 'layout_archive'      => 'Datum & Titel',
