@@ -53,4 +53,6 @@ return array (
   ),
   'hide_homepage_title' => true,
   'hide_blog_page_title' => true,
+  'admin_homepage' => 'content',
+  'admin_hide_dashboard' => false,
 );
