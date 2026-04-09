@@ -125,12 +125,24 @@ function load_update_ignore_patterns(): array
  */
 function is_path_ignored(string $relative, array $patterns): bool
 {
+    return matched_ignore_pattern($relative, $patterns) !== null;
+}
+
+/**
+ * Returns the matched pattern (exact) or the pattern with '/*' appended
+ * (directory prefix match). Returns null if no pattern matches.
+ */
+function matched_ignore_pattern(string $relative, array $patterns): ?string
+{
     foreach ($patterns as $pattern) {
         if (fnmatch($pattern, $relative)) {
-            return true;
+            return $pattern;
+        }
+        if (str_starts_with($relative, rtrim($pattern, '/') . '/')) {
+            return rtrim($pattern, '/') . '/*';
         }
     }
-    return false;
+    return null;
 }
 
 function remove_directory_recursive(string $path): void
@@ -363,7 +375,7 @@ function build_package_upgrade_plan(string $zipballUrl): array
         $ignorePatterns = load_update_ignore_patterns();
         $willAdd = [];
         $willReplace = [];
-        $willIgnore = [];
+        $willIgnore = [];  // keyed by display label to collapse directory patterns
         $unchanged = [];
         $willSkip = [];
         $sourceCoreSet = [];
@@ -387,8 +399,8 @@ function build_package_upgrade_plan(string $zipballUrl): array
                 $same = @sha1_file($sourcePath) === @sha1_file($targetPath);
                 if ($same) {
                     $unchanged[] = '/' . $relative;
-                } elseif (is_path_ignored($relative, $ignorePatterns)) {
-                    $willIgnore[] = '/' . $relative;
+                } elseif (($matchedPattern = matched_ignore_pattern($relative, $ignorePatterns)) !== null) {
+                    $willIgnore['/' . $matchedPattern] = '/' . $matchedPattern;
                 } else {
                     $willReplace[] = '/' . $relative;
                 }
@@ -418,8 +430,8 @@ function build_package_upgrade_plan(string $zipballUrl): array
             // Ignored files always surface in will_ignore regardless of whether
             // they were actually at risk, so the plan reflects the full ignore list.
             if (!isset($sourceCoreSet[$relative])) {
-                if (is_path_ignored($relative, $ignorePatterns)) {
-                    $willIgnore[] = '/' . $relative;
+                if (($matchedPattern = matched_ignore_pattern($relative, $ignorePatterns)) !== null) {
+                    $willIgnore['/' . $matchedPattern] = '/' . $matchedPattern;
                 } elseif (isset($sourceTopItems[$top])) {
                     // Only flag as deleted if inside a directory the update will wipe.
                     $localOnly[] = '/' . $relative;
@@ -446,7 +458,7 @@ function build_package_upgrade_plan(string $zipballUrl): array
             ],
             'will_add' => $willAdd,
             'will_replace' => $willReplace,
-            'will_ignore' => $willIgnore,
+            'will_ignore' => array_values($willIgnore),
             'unchanged' => $unchanged,
             'will_skip' => $willSkip,
             'local_only' => $localOnly,
@@ -770,7 +782,12 @@ function apply_release_update(string $zipballUrl, string $releaseTag = ''): arra
 
         // Restore files the user has opted to ignore.
         foreach ($savedIgnoredFiles as $relative => $content) {
-            @file_put_contents(PUREBLOG_BASE_PATH . '/' . $relative, $content);
+            $target = PUREBLOG_BASE_PATH . '/' . $relative;
+            $dir = dirname($target);
+            if (!is_dir($dir)) {
+                @mkdir($dir, 0755, true);
+            }
+            @file_put_contents($target, $content);
         }
 
         // Flush the opcode cache so the next request immediately picks up
@@ -778,6 +795,8 @@ function apply_release_update(string $zipballUrl, string $releaseTag = ''): arra
         if (function_exists('opcache_reset')) {
             @opcache_reset();
         }
+
+        @unlink(PUREBLOG_BASE_PATH . '/content/.version-cache');
 
         return [
             'ok' => true,
