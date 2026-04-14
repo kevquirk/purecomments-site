@@ -8,6 +8,11 @@ include_in_nav: false
 
 # Changelog
 
+## 1.4.0 - 14 April 2026
+Added translation support. Currently has English (`en.php`) and German (`de.php`). German translations were created by AI, so please submit a PR if updates are required. [Read the docs](/working-with-translations).
+
+---
+
 ## 1.3.2 — 21 March 2026
 
 ### Fixed

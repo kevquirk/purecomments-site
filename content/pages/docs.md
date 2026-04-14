@@ -16,3 +16,4 @@ I'll keep continue to keep these docs updates as I add new features to Pure Comm
 4. [Working with Data Attributes](/working-with-data-attributes)
 5. [How to update](/how-to-update-pure-comments)
 6. [Setting up email notifications](/setting-up-email-notifications)
+7. [Working with translations](/working-with-translations)

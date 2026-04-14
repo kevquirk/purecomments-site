@@ -1,8 +1,8 @@
 ---
 title: Working With Translations
 slug: working-with-translations
-date: 2026-04-14 10:52
-status: draft
+date: 2026-04-14 12:43
+status: published
 tags: [docs]
 description: How to translate the Pure Comments admin UI and embed strings into other languages.
 ---
