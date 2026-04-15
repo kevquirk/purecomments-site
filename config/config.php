@@ -8,7 +8,8 @@ return array (
   'custom_routes' => '',
   'head_inject_page' => '',
   'head_inject_post' => '',
-  'footer_inject_page' => '',
+  'footer_inject_page' => '<a style="display:none;" rel="me" href="https://fosstodon.org/@purecommons">Mastodon</a>
+<a style="display:none;" rel="me" href="https://fosstodon.org/@kev">Mastodon</a>',
   'footer_inject_post' => '',
   'posts_per_page' => 20,
   'search_excerpt_length' => 2500,
