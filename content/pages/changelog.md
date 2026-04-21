@@ -8,6 +8,15 @@ include_in_nav: false
 
 # Changelog
 
+## 1.4.1 - 21 April 2026
+- Fixed incorrect email encoding for UTF-8 characters (e.g. umlauts) in SMTP notifications ([fixes #2](https://github.com/kevquirk/purecomments/issues/2))
+- Added SMTP debug logging toggle to settings — displays the full SMTP conversation log in the admin UI when sending a test email ([fixes #4](https://github.com/kevquirk/purecomments/issues/4))
+- Fixed updater not replacing the `lang/` directory when upgrading — lang files will now be updated correctly from this version onwards
+
+**⚠️ One-off manual step for anyone upgrading to v1.4.1:** the updater could not replace your lang files during this upgrade, so you will need to manually copy the `lang/` directory from the release zip to your installation.
+
+---
+
 ## 1.4.0 - 14 April 2026
 Added translation support. Currently has English (`en.php`) and German (`de.php`). German translations were created by AI, so please submit a PR if updates are required. [Read the docs](/working-with-translations).
 
