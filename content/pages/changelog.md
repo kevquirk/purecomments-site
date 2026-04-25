@@ -8,6 +8,20 @@ include_in_nav: false
 
 # Changelog
 
+## 1.5.0 - 25 April 2026
+
+### New features
+- **"Remember me"** checkbox on the login page; sets a 90-day persistent cookie so the browser session survives a restart.
+- **Filter by post** - each comment row in the dashboard now has a "Filter by this post" link that scopes both pending and published lists to that post.
+- **Filter by commenter** - each comment row has a "Filter by this commenter" link; filters by email if the commenter provided one, otherwise by name.
+
+**Note:** Translations for new strings were done by an AI, so will likely need a human review.
+
+### Improvements
+- Enhanced German translation (thanks [werschreibt](https://github.com/werschreibt)).
+
+---
+
 ## 1.4.1 - 21 April 2026
 - Fixed incorrect email encoding for UTF-8 characters (e.g. umlauts) in SMTP notifications ([fixes #2](https://github.com/kevquirk/purecomments/issues/2))
 - Added SMTP debug logging toggle to settings — displays the full SMTP conversation log in the admin UI when sending a test email ([fixes #4](https://github.com/kevquirk/purecomments/issues/4))
